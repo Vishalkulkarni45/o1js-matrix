@@ -1,4 +1,4 @@
-import { Matrix } from '../src/matrix_ops';
+import { Matrix } from '../src/matrix_ops.js';
 
 import { Field, Provable, ZkProgram } from 'o1js';
 
