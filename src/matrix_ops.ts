@@ -29,14 +29,25 @@ export class Matrix {
 
 function add(matrix1: Matrix, matrix2: Matrix): Matrix {
 
-    matrix1.values_len.equals(matrix2.values_len);
-    matrix1.shape[0].equals(matrix2.shape[0]);
-    matrix1.shape[1].equals(matrix2.shape[1]);
+    constr_matrix_config(matrix1, matrix2);
+
+    matrix2.zero_point.equals(Field(0));
+    matrix2.scale.equals(Field(1));
+
+    let values: Field[] = []
 
     for (let i = 0; i < matrix1.values.length; i++) {
-        matrix1.values[i] = matrix1.values[i].add(matrix2.values[i]);
+        values.push(matrix1.values[i].add(matrix2.values[i]));
     }
 
-    return matrix1
+    return new Matrix(values, matrix1.values_len, matrix1.shape, matrix1.zero_point, matrix1.scale);
 
+}
+
+function constr_matrix_config(matrix: Matrix, other: Matrix) {
+    matrix.values_len.equals(other.values_len);
+    matrix.shape[0].equals(other.shape[0]);
+    matrix.shape[1].equals(other.shape[1]);
+    matrix.zero_point.equals(other.zero_point);
+    matrix.scale.equals(other.scale);
 }
