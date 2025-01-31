@@ -1,4 +1,6 @@
-import { Field, Provable } from 'o1js';
+import { Field, Provable, Circuit } from 'o1js';
+
+import { add_quant, sub_quant, mul_quant, div_quant } from './quantize';
 
 export class Matrix {
     values: Field[];
@@ -23,6 +25,23 @@ export class Matrix {
 
     add(other: Matrix): Matrix {
         return add(this, other)
+    }
+
+    //TODO:optimize this
+    quant_add(other: Matrix): Matrix {
+
+        constr_matrix_config(this, other);
+
+        let values: Field[] = [];
+        let matrix1_values = this.values;
+        let matrix2_values = other.values;
+
+        for (let i = 0; i < matrix1_values.length; i++) {
+            values.push(add_quant(matrix1_values[i], this.zero_point, this.scale, matrix2_values[i], other.zero_point, other.scale, this.zero_point, this.scale))
+        }
+
+        return new Matrix(values, this.values_len, this.shape, this.zero_point, this.scale);
+
     }
 
 }
