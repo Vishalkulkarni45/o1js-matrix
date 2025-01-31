@@ -27,8 +27,8 @@ let matrix_add_circuit = ZkProgram({
                 zero_point: Field,
                 scale: Field
             ) {
-                let other_matrix = new Matrix(other_values, other_values_len, other_shape, Field(0), Field(1));
-                let matrix = new Matrix(values, values_len, shape, zero_point, scale);
+                let other_matrix = new Matrix(other_values, other_shape, Field(0), Field(1));
+                let matrix = new Matrix(values, shape, zero_point, scale);
                 matrix.add(other_matrix);
             },
         },
