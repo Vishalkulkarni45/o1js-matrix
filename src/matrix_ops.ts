@@ -10,9 +10,9 @@ export class Matrix {
 
     constructor(values: Field[], shape: [Field, Field], zero_point: Field, scale: Field) {
 
-        // //Is it better to use if branch in this case? Does the below is a circuit constrain ot ts checker
-        // let values_len = Field(values.length);
-        // values_len.equals(exp_values_len);
+        if (values.length !== Number(shape[0]) * Number(shape[1])) {
+            throw new Error('Values length does not match the shape');
+        }
 
         this.values = values;
         this.shape = shape;
