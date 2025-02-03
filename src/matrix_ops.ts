@@ -352,11 +352,11 @@ function scalar_div(matrix: Field[], scalar: Field): Field[] {
     return result;
 }
 
-function transpose(matrix: Field[], shape: [Field, Field]): Field[] {
-    let result = [];
-    for (let i = 0; i < shape[0].toBigInt(); i++) {
-        for (let j = 0; j < shape[1].toBigInt(); i++) {
-            result[j * Number(shape[0]) + i] = matrix[i * Number(shape[1]) + j];
+function transpose(matrix_values: Field[], shape: [Field, Field]): Field[] {
+    let result: Field[] = new Array(matrix_values.length).fill(Field(0));
+    for (let i = 0; i < Number(shape[0]); i++) {
+        for (let j = 0; j < Number(shape[1]); j++) {
+            result[j * Number(shape[0]) + i] = matrix_values[i * Number(shape[1]) + j];
         }
     }
     return result
