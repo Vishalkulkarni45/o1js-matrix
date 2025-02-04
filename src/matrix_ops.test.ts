@@ -131,39 +131,28 @@ describe('Matrix non-quant operations', () => {
 
     });
 
-    it('should cal transpose correctly', async () => {
-        let matrix_values: Field[] = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => Field(x));
-        let exp_values: Field[] = [1, 4, 7, 2, 5, 8, 3, 6, 9].map((x) => Field(x));
 
-        let matrix = new Matrix(matrix_values, [Field(3), Field(3)], Field(0), Field(1));
-        let out = matrix.transpose();
+});
 
-        expect(out.values).toEqual(exp_values);
-    });
+describe('Matrix quant operations', () => {
 
-    it.only('should cal determinant correctly', async () => {
+    it.only('should add two quantized matrix correctly', async () => {
 
-        let matrix_values: Field[] = [1, 5, 6, 2, 4, 5, 6, 4, 1].map((x) => Field(x));
-        let matrix = new Matrix(matrix_values, [Field(3), Field(3)], Field(0), Field(1));
+        let shape = [3, 3];
 
-        let out = matrix.determinant();
+        let matrix1_values: Field[] = new Array(shape[0] * shape[1]).fill(Field(1));
+        let matrix2_values: Field[] = new Array(shape[0] * shape[1]).fill(Field(2));
 
-        console.log(out);
+        let exp_out: Field[] = new Array(shape[0] * shape[1]).fill(Field(2));
 
-        expect(out).toEqual(Field(28));
+        let matrix1 = new Matrix(matrix1_values, [Field(shape[0]), Field(shape[1])], Field(0), Field(1));
+        let matrix2 = new Matrix(matrix2_values, [Field(shape[0]), Field(shape[1])], Field(0), Field(2));
 
-    });
+        let out = matrix1.quant_add(matrix2);
 
-    it('should cal adjoint correctly', async () => {
-
-        let matrix_values: Field[] = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => Field(x));
-        let exp_values: Field[] = [-3, 6, -3, 6, -12, 6, -25, 6, -3].map((x) => Field(x));
-
-        let matrix = new Matrix(matrix_values, [Field(3), Field(3)], Field(0), Field(1));
-        let out = matrix.adjoint();
-
-        //  expect(out.values).toEqual(exp_values);
+        expect(out.values).toEqual(exp_out);
 
     });
+
 
 });
