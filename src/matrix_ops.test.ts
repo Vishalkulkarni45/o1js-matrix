@@ -103,7 +103,7 @@ describe('Matrix non-quant operations', () => {
         expect(out.shape).toEqual([Field(2), Field(2)]);
     });
 
-    it.only('should  calculate scalar_mul and scalar div correctly', async () => {
+    it('should  calculate scalar_mul and scalar div correctly', async () => {
 
         let shape = [3, 3];
         let matrix_values: Field[] = [];
@@ -133,17 +133,37 @@ describe('Matrix non-quant operations', () => {
 
     it('should calculate determinant of matrix correctly', async () => {
 
-        let matrix_values = [0, 1, 2, 4, 5, 6, 7, 8, 9].map((x) => Field(x));
-
+        let matrix_values = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => Field(x));
         let matrix_obj = new Matrix(matrix_values, [Field(3), Field(3)], Field(0), Field(1));
 
         let det = matrix_obj.determinant();
-
         expect(det).toEqual(Field(0));
 
     });
 
-    
+    it('should calculate adjoint of matrix correctly', async () => {
+
+        let matrix_values = [0, 1, 2, 4, 5, 6, 7, 8, 0].map((x) => Field(x));
+        let matrix_obj = new Matrix(matrix_values, [Field(3), Field(3)], Field(0), Field(1));
+
+        let adj = matrix_obj.adjoint();
+        expect(adj.values).toEqual([-48, 16, -4, 42, -14, 8, -3, 7, -4].map((x) => Field(x)));
+
+    });
+
+
+    it.only('should calculate inverse of matrix correctly', async () => {
+
+        let matrix_values = [0, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => Field(x));
+        let matrix_obj = new Matrix(matrix_values, [Field(3), Field(3)], Field(0), Field(1));
+        let inv = matrix_obj.inverse();
+
+        let new_matrix = new Matrix(inv.values, [Field(3), Field(3)], Field(0), Field(1));
+        let I = matrix_obj.mul(new_matrix);
+
+        expect(I.values).toEqual([1, 0, 0, 0, 1, 0, 0, 0, 1].map((x) => Field(x)));
+
+    });
 
 
 });
