@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "buildw": "tsc --watch",
     "circuit": "npm run build && node build/test/test_add.js",
+    "example": "npm run build && node build/src/run.js",
     "test": "jest"
   },
   "repository": {

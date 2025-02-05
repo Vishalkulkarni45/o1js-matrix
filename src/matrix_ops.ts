@@ -274,19 +274,15 @@ function inverse(matrix: Field[], shape: [Field, Field]): Field[] {
     Provable.assertEqual(Field, shape[0], shape[1]);
     let det = determinant(matrix, shape);
     det.assertNotEquals(Field(0));
-    console.log(Number(det));
     let ad_joint = adjoint(matrix, shape);
 
-    let ad_print = ad_joint.map((x) => Number(x));
-
-    console.log(ad_print);
     let inverse = new Array(matrix.length).fill(Field(0));
 
-    for (let i = 0; i < shape[0].toBigInt(); i++) {
-        for (let j = 0; j < shape[1].toBigInt(); j++) {
-            inverse[i * Number(shape[1]) + j] = ad_joint[i * Number(shape[1]) + j].div(det);
-        }
-    }
+    // for (let i = 0; i < shape[0].toBigInt(); i++) {
+    //     for (let j = 0; j < shape[1].toBigInt(); j++) {
+    //         inverse[i * Number(shape[1]) + j] = ad_joint[i * Number(shape[1]) + j].div(det);
+    //     }
+    // }
 
     return inverse;
 
