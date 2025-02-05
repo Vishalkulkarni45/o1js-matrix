@@ -282,8 +282,6 @@ export class Matrix {
         }
 
         return new Matrix(values, this.shape, this.zero_point, this.scale);
-
-
     }
 }
 
@@ -362,20 +360,31 @@ function transpose(matrix_values: Field[], shape: [Field, Field]): Field[] {
 }
 
 function get_minor(matrix: Field[], row: Field, col: Field, shape: [Field, Field], minor: Field[]): Field[] {
-    let r = Field(-1);
 
-    for (let i = 0; i < shape[0].toBigInt(); i++) {
-        let i_not_row = Field(i).equals(row).not();
-        r = Provable.if(i_not_row, Field, r.add(Field(1)), r);
-        let c = Field(-1);
+    let native_minor: Field[] = new Array(Number(shape[0]) * Number(shape[1])).fill(Field(0));
 
-        for (let j = 0; j < shape[1].toBigInt(); j++) {
-            let j_not_col = Field(j).equals(col).not();
-            c = Provable.if(j_not_col.and(i_not_row), Field, c.add(Field(1)), c);
-            minor[Number(r) * (Number(shape[1]) - 1) + Number(c)] = Provable.if(j_not_col, Field, matrix[i * Number(shape[1]) + j], minor[Number(r) * (Number(shape[1]) - 1) + Number(c)]);
+    let r = -1;
+
+    for (let i = 0; i < Number(shape[0]); i++) {
+        if (i != Number(row)) {
+            r += 1;
+            let c = -1;
+            for (let j = 0; j < Number(shape[1]); j++) {
+                if (j != Number(col)) {
+                    c += 1;
+                    let minor_idx = r * (Number(shape[1]) - 1) + c;
+                    native_minor[minor_idx] = matrix[i * Number(shape[1]) + j];
+                    minor[minor_idx] = Provable.witness(Field, () => native_minor[minor_idx]);
+                    Provable.assertEqual(Field, minor[minor_idx], matrix[i * Number(shape[1]) + j]);
+                }
+            }
+
         }
+
     }
-    return minor;
+
+    return minor
+
 }
 
 

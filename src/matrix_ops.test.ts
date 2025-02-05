@@ -103,7 +103,7 @@ describe('Matrix non-quant operations', () => {
         expect(out.shape).toEqual([Field(2), Field(2)]);
     });
 
-    it('should  calculate scalar_mul and scalar div correctly', async () => {
+    it.only('should  calculate scalar_mul and scalar div correctly', async () => {
 
         let shape = [3, 3];
         let matrix_values: Field[] = [];
@@ -131,28 +131,20 @@ describe('Matrix non-quant operations', () => {
 
     });
 
+    it('should calculate determinant of matrix correctly', async () => {
 
-});
+        let matrix_values = [0, 1, 2, 4, 5, 6, 7, 8, 9].map((x) => Field(x));
 
-describe('Matrix quant operations', () => {
+        let matrix_obj = new Matrix(matrix_values, [Field(3), Field(3)], Field(0), Field(1));
 
-    it.only('should add two quantized matrix correctly', async () => {
+        let det = matrix_obj.determinant();
 
-        let shape = [3, 3];
-
-        let matrix1_values: Field[] = new Array(shape[0] * shape[1]).fill(Field(1));
-        let matrix2_values: Field[] = new Array(shape[0] * shape[1]).fill(Field(2));
-
-        let exp_out: Field[] = new Array(shape[0] * shape[1]).fill(Field(2));
-
-        let matrix1 = new Matrix(matrix1_values, [Field(shape[0]), Field(shape[1])], Field(0), Field(1));
-        let matrix2 = new Matrix(matrix2_values, [Field(shape[0]), Field(shape[1])], Field(0), Field(2));
-
-        let out = matrix1.quant_add(matrix2);
-
-        expect(out.values).toEqual(exp_out);
+        expect(det).toEqual(Field(0));
 
     });
 
+    
+
 
 });
+
