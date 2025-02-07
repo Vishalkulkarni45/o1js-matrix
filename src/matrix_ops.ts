@@ -7,8 +7,6 @@ export class Matrix {
     scale: Field;
 
     constructor(values: Field[], shape: [Field, Field], zero_point: Field, scale: Field) {
-        shape[0].assertLessThan(Field(2**32));
-        shape[1].assertLessThan(Field(2**32));
 
         if (values.length !== Number(shape[0]) * Number(shape[1])) {
             throw new Error('Values length does not match the shape');
@@ -171,6 +169,7 @@ function scalar_mul(matrix: Field[], scalar: Field): Field[] {
 }
 
 function scalar_div(matrix: Field[], scalar: Field): Field[] {
+    scalar.assertEquals(Field(0), "Division by zero");
     let result = [];
     for (let i = 0; i < matrix.length; i++) {
         result[i] = matrix[i].div(scalar);
@@ -291,8 +290,9 @@ function inverse(matrix: Field[], shape: [Field, Field]): Field[] {
 }
 
 function constr_matrix_config(matrix: Matrix, other: Matrix) {
-    matrix.shape[0].equals(other.shape[0]);
-    matrix.shape[1].equals(other.shape[1]);
-    matrix.zero_point.equals(other.zero_point);
-    matrix.scale.equals(other.scale);
+    matrix.shape[0].equals(other.shape[0]).assertEquals(true);
+    matrix.shape[1].equals(other.shape[1]).assertEquals(true);
+    matrix.zero_point.equals(other.zero_point).assertEquals(true);
+    matrix.scale.equals(other.scale).assertEquals(true);
+    matrix.scale.assertGreaterThan(Field(0), "Scale must be positive");
 }
