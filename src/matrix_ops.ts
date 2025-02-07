@@ -169,7 +169,7 @@ function scalar_mul(matrix: Field[], scalar: Field): Field[] {
 }
 
 function scalar_div(matrix: Field[], scalar: Field): Field[] {
-    scalar.assertEquals(Field(0), "Division by zero");
+    scalar.assertNotEquals(Field(0), "Division by zero");
     let result = [];
     for (let i = 0; i < matrix.length; i++) {
         result[i] = matrix[i].div(scalar);
