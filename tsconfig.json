@@ -1,10 +1,13 @@
 {
-     "compilerOptions": {
+  "compilerOptions": {
     "target": "es2020",
     "module": "es2022",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "outDir": "./build",
-
+    "rootDir": ".",
     "strict": true,
     "strictPropertyInitialization": false, // to enable generic constructors, e.g. on CircuitValue
     "skipLibCheck": true,
@@ -20,5 +23,7 @@
     "allowSyntheticDefaultImports": true,
     "useDefineForClassFields": false,
   },
-  "include": ["src/**/*.ts", "test/**/*.ts"]
-  }
+  "include": [
+    "src/**/*.ts",
+  ]
+}
