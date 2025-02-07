@@ -152,7 +152,7 @@ describe('Matrix non-quant operations', () => {
     });
 
 
-    it.only('should calculate inverse of matrix correctly', async () => {
+    it('should calculate inverse of matrix correctly', async () => {
 
         let matrix_values = [0, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => Field(x));
         let matrix_obj = new Matrix(matrix_values, [Field(3), Field(3)], Field(0), Field(1));
