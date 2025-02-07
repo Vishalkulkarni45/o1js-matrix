@@ -7,6 +7,8 @@ export class Matrix {
     scale: Field;
 
     constructor(values: Field[], shape: [Field, Field], zero_point: Field, scale: Field) {
+        shape[0].assertLessThan(Field(2**32));
+        shape[1].assertLessThan(Field(2**32));
 
         if (values.length !== Number(shape[0]) * Number(shape[1])) {
             throw new Error('Values length does not match the shape');
@@ -278,11 +280,11 @@ function inverse(matrix: Field[], shape: [Field, Field]): Field[] {
 
     let inverse = new Array(matrix.length).fill(Field(0));
 
-    // for (let i = 0; i < shape[0].toBigInt(); i++) {
-    //     for (let j = 0; j < shape[1].toBigInt(); j++) {
-    //         inverse[i * Number(shape[1]) + j] = ad_joint[i * Number(shape[1]) + j].div(det);
-    //     }
-    // }
+    for (let i = 0; i < shape[0].toBigInt(); i++) {
+        for (let j = 0; j < shape[1].toBigInt(); j++) {
+            inverse[i * Number(shape[1]) + j] = ad_joint[i * Number(shape[1]) + j].div(det);
+        }
+    }
 
     return inverse;
 
