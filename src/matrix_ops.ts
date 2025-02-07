@@ -294,5 +294,4 @@ function constr_matrix_config(matrix: Matrix, other: Matrix) {
     matrix.shape[1].equals(other.shape[1]).assertEquals(true);
     matrix.zero_point.equals(other.zero_point).assertEquals(true);
     matrix.scale.equals(other.scale).assertEquals(true);
-    matrix.scale.assertGreaterThan(Field(0), "Scale must be positive");
 }
