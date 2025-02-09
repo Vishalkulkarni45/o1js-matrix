@@ -84,5 +84,22 @@ cd /src
 npm test
 ```
 
+## Benchmark
+
+### How to Benchmark
+```
+npm run build && node build/src/run.js
+```
+
+### Preview
+
+| Summary | Numbers |
+| ------ | ------- | 
+| Total Rows | 56 |
+| Generic | 56 | 
+| Compile time | 523.252ms | 
+| Proving time | 10.672s |
+| verifying time | 372.035ms |
+
 ## License
 This project is licensed under the MIT License.
