@@ -2,11 +2,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-o1js Matrix Library is a TypeScript library for performing matrix operations in zkApps development. Built on the o1js framework, it provides a set of tools to work with matrices and perform advanced computations in zero-knowledge proof environments.
+o1js Matrix Library is a TypeScript library for performing matrix operations in zkApps development. Built on the o1js framework, it provides a set of functions to work with matrices and perform advanced computations in zero-knowledge proof environments.
 
 ## Features
-- **Basic Operations:** Addition, Subtraction, Scalar Multiplication, Multiplication and Transposition
-- **Advanced Operations:** Determinant Calculation, LU Decomposition, and Matrix Inversion
+- **Basic Operations:** Addition, Subtraction, Scalar Multiplication, Multiplication 
+- **Advanced Operations:** Determinant Calculation, Adjoint, and Matrix Inversion
 
 ## Installation
 Ensure that you have Node.js and npm installed, then run:
@@ -15,6 +15,9 @@ npm install o1js-matrix
 ```
 
 ## Basic Usage Example
+
+You should explicitly add a range check on the matrix values before initializing the matrix.
+
 ```
 import { Matrix } from 'o1js-matrix';
 import { Field } from 'o1js';
@@ -80,9 +83,6 @@ This repository is built with TypeScript and uses Jest for testing. To run the t
 cd /src
 npm test
 ```
-
-## API Documentation
-For detailed API documentation, please visit our documentation site.
 
 ## License
 This project is licensed under the MIT License.
