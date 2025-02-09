@@ -7,7 +7,7 @@ const other_shape: [Field, Field] = [Field(3), Field(3)];
 
 
 let matrix_circuit = ZkProgram({
-    name: 'matrix-add-verify',
+    name: 'matrix-verify',
 
     methods: {
         verifyaddition: {
