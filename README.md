@@ -99,7 +99,7 @@ npm run build && node build/src/run.js
 | Generic | 56 | 
 | Compile time | 523.252ms | 
 | Proving time | 10.672s |
-| verifying time | 372.035ms |
+| Verifying time | 372.035ms |
 
 ## License
 This project is licensed under the MIT License.
