@@ -6,8 +6,8 @@ const other_values = [0, 1, 2, 4, 5, 6, 7, 8, 0].map((x) => Field(x));
 const other_shape: [Field, Field] = [Field(3), Field(3)];
 
 
-let matrix_add_circuit = ZkProgram({
-    name: 'matrix-add-verify',
+let matrix_circuit = ZkProgram({
+    name: 'matrix-verify',
 
     methods: {
         verifyaddition: {
@@ -37,13 +37,13 @@ let matrix_add_circuit = ZkProgram({
     },
 });
 
-let { verifyaddition } = await matrix_add_circuit.analyzeMethods();
+let { verifyaddition } = await matrix_circuit.analyzeMethods();
 
 console.log(verifyaddition.summary());
 
 console.time('compile');
 const forceRecompileEnabled = false;
-await matrix_add_circuit.compile({ forceRecompile: forceRecompileEnabled });
+await matrix_circuit.compile({ forceRecompile: forceRecompileEnabled });
 console.timeEnd('compile');
 
 const cur_values = [Field(1), Field(2), Field(3), Field(4), Field(5), Field(6), Field(7), Field(8), Field(9)];
@@ -51,9 +51,17 @@ const cur_shape = [Field(3), Field(3)];
 
 
 console.time('prove');
-let proof = await matrix_add_circuit.verifyaddition(cur_values, cur_shape, Field(0), Field(1));
+let proof = await matrix_circuit.verifyaddition(cur_values, cur_shape, Field(0), Field(1));
 console.timeEnd('prove');
 
 console.time('verify');
-await matrix_add_circuit.verify(proof.proof);
+await matrix_circuit.verify(proof.proof);
 console.timeEnd('verify');
+
+/* 
+(async () => {
+    const analysis = await matrix_circuit.analyzeMethods();
+    console.log(analysis);
+    console.log(analysis.verifyaddition.summary());
+})();
+*/
